@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RONY FFOFFICIAL</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+RONY FFOFFICIAL
+</div>
+
+<div class="menu">
+
+<a href="login.html">Login</a>
+
+<a href="register.html">Register</a>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<h1>RONY FFOFFICIAL</h1>
+
+<p>
+Premium Access Panel Website
+</p>
+
+<a class="btn" href="login.html">
+Generate Key
+</a>
+
+<a class="btn2"
+href="https://t.me/+qXy1qQSIq1dhZmM9"
+target="_blank">
+Join Telegram
+</a>
+
+</section>
+
+<section class="card">
+
+<h2>Instant Access</h2>
+
+<p>
+Fast Login System
+
+<br>
+
+Secure Dashboard
+
+<br>
+
+24/7 Telegram Support
+
+</p>
+
+</section>
+
+<footer>
+
+©2026 RONY FFOFFICIAL
+
+</footer>
+
+</body>
+</html>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#070b17;
+color:#fff;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+background:#111827;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#00c8ff;
+}
+
+.menu a{
+color:white;
+text-decoration:none;
+margin-left:15px;
+}
+
+.hero{
+text-align:center;
+padding:70px 20px;
+}
+
+.hero h1{
+font-size:40px;
+color:#ff4fd8;
+margin-bottom:15px;
+}
+
+.hero p{
+color:#bdbdbd;
+margin-bottom:30px;
+}
+
+.btn,.btn2{
+display:block;
+width:250px;
+margin:15px auto;
+padding:15px;
+border-radius:40px;
+text-decoration:none;
+font-weight:bold;
+text-align:center;
+}
+
+.btn{
+background:linear-gradient(90deg,#8a2be2,#ff2d95);
+color:white;
+}
+
+.btn2{
+border:2px solid #00d5ff;
+color:#00d5ff;
+}
+
+.card{
+width:90%;
+margin:30px auto;
+background:#121b2f;
+padding:25px;
+border-radius:20px;
+text-align:center;
+}
+
+footer{
+text-align:center;
+padding:20px;
+color:#888;
+}
