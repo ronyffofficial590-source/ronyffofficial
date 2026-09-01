@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RONY FF OFFICIAL - Admin Panel</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:#000;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden}
+#loading-screen{position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;transition:.5s}
+.loading-card,.card{background:#0d1117;border:1px solid #161b22;border-radius:20px;width:90%;max-width:380px;text-align:center}
+.loading-card{padding:40px 30px}
+.loading-card h2{color:#00e5ff;font-size:1.05rem;letter-spacing:2px;margin-bottom:28px}
+.spinner{width:60px;height:60px;border:4px solid #161b22;border-top-color:#00e5ff;border-radius:50%;margin:0 auto 25px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{color:#8b949e;font:13px monospace;letter-spacing:1px;margin-bottom:15px}
+.progress-bar{height:4px;background:#161b22;border-radius:4px;overflow:hidden}.progress-fill{height:100%;background:#00e5ff;animation:fill 2.7s forwards}
+@keyframes fill{0%{width:0}60%{width:72%}100%{width:100%}}
+#app{width:100%;display:flex;justify-content:center;align-items:center}
+.card{padding:28px 22px;box-shadow:0 0 25px rgba(0,229,255,.12);max-height:94vh;overflow:auto}
+.card::-webkit-scrollbar{width:0}
+.profile{width:90px;height:90px;margin:0 auto 14px;position:relative}
+.profile img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:2px solid #00e5ff;box-shadow:0 0 15px rgba(0,229,255,.4)}
+.profile .fallback{width:100%;height:100%;border-radius:50%;border:2px solid #00e5ff;display:flex;align-items:center;justify-content:center;font-size:30px;background:#111820}
+.title{font-size:1.05rem;font-weight:700;letter-spacing:1px}.subtitle{color:#00e5ff;font-size:.72rem;letter-spacing:2px;margin:3px 0 20px}
+input{width:100%;padding:12px;background:#050505;border:1px solid #21262d;border-radius:8px;color:#fff;outline:none;margin-bottom:11px;font-size:.82rem}
+input:focus{border-color:#00e5ff}
+button,.btn{width:100%;padding:12px;border-radius:8px;font-weight:700;font-size:.82rem;letter-spacing:.7px;cursor:pointer}
+.primary{background:#00e5ff;border:0;color:#000;margin-bottom:14px}
+.google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px;background:#fff;border:none;border-radius:8px;color:#000;font-weight:600;font-size:.85rem;letter-spacing:.2px;cursor:pointer;margin-bottom:15px;box-shadow:0 0 10px rgba(255,255,255,.1);transition:background .3s}
+.google:hover{background:#f1f1f1}.google svg{width:18px;height:18px;flex:none}
+.telegram{display:flex;align-items:center;justify-content:center;text-decoration:none;background:transparent;border:1px solid #00e5ff;color:#00e5ff;margin-bottom:14px}
+.telegram:hover{background:rgba(0,229,255,.1)}
+.divider{color:#484f58;font-size:.68rem;margin:0 0 12px;letter-spacing:1px}
+.links{display:flex;justify-content:center;gap:12px;font-size:.68rem;flex-wrap:wrap}.links a{color:#00e5ff;text-decoration:none;cursor:pointer}
+.copyright{margin-top:14px;color:#484f58;font-size:.65rem}
+.page{display:none}.page.active{display:block}
+.back{display:block;color:#00e5ff;text-decoration:none;font-size:.7rem;margin:2px 0 14px;cursor:pointer}
+.page-title{color:#00e5ff;font-size:1.05rem;font-weight:700;letter-spacing:1px;margin-bottom:4px}.page-sub{color:#8b949e;font-size:.68rem;margin-bottom:18px}
+.msg{font-size:.72rem;margin:3px 0 10px;min-height:16px}.success{color:#00e5ff}.error{color:#ff6b6b}
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loading-card">
+    <h2>SECURITY VALIDATION</h2>
+    <div class="spinner"></div>
+    <div class="loading-text">Verifying browser...</div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+  </div>
+</div>
+
+<div id="app">
+  <!-- LOGIN -->
+  <section id="loginPage" class="card page active">
+    <div class="profile">
+      <img src="photo.jpg" alt="Profile" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="fallback" style="display:none">👑</div>
+    </div>
+    <div class="title">👑 RONY FF OFFICIAL 👑</div>
+    <div class="subtitle">AUTHORIZE ACCESS</div>
+
+    <form id="loginForm">
+      <input id="username" type="text" placeholder="USER NAME" required>
+      <input id="password" type="password" placeholder="PASSWORD" required>
+      <button class="primary" type="submit">LOGIN NOW</button>
+    </form>
+
+    <!-- DEMO ONLY: intentionally no action -->
+    <button id="googleDemo" class="google" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.19v3.15C3.17 21.32 7.24 24 12 24z"/>
+        <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.19C.43 8.12 0 9.87 0 11.7s.43 3.58 1.19 5.12l4.09-2.55z"/>
+        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.24 0 3.17 2.68 1.19 6.58l4.09 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+      </svg>
+      SIGN IN WITH GOOGLE
+    </button>
+
+    <div class="divider">OR JOIN COMMUNITY</div>
+
+    <!-- Direct Telegram redirect -->
+    <a class="btn telegram" href="https://t.me/+nHiJgdSXQ8VjZjA9" target="_blank" rel="noopener">
+      ▶ &nbsp; HOW TO BUY AND HOW TO USE
+    </a>
+
+    <div class="links">
+      <a data-page="resetPage">Forgot Password?</a>
+      <a data-page="changeGmailPage">Change Gmail</a>
+    </div>
+    <div class="links" style="margin-top:6px;color:#484f58">
+      New User? <a data-page="registerPage">Create Account</a>
+    </div>
+    <div class="copyright">© 2026 RONY FF OFFICIAL SYSTEM</div>
+    <div id="loginMsg" class="msg"></div>
+  </section>
+
+  <!-- REGISTER -->
+  <section id="registerPage" class="card page">
+    <div class="page-title">ADMIN PANEL</div><div class="page-sub">CREATE ACCOUNT</div>
+    <form id="registerForm">
+      <input id="regUser" placeholder="USER NAME" required>
+      <input id="regEmail" type="email" placeholder="EMAIL ADDRESS" required>
+      <input id="regPass" type="password" placeholder="PASSWORD" required>
+      <input id="regConfirm" type="password" placeholder="CONFIRM PASSWORD" required>
+      <button class="primary" type="submit">REGISTER NOW</button>
+    </form>
+    <button id="googleRegisterDemo" class="google" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.19v3.15C3.17 21.32 7.24 24 12 24z"/>
+        <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.19C.43 8.12 0 9.87 0 11.7s.43 3.58 1.19 5.12l4.09-2.55z"/>
+        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.24 0 3.17 2.68 1.19 6.58l4.09 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+      </svg>
+      SIGN UP WITH GOOGLE
+    </button>
+    <a class="btn telegram" href="https://t.me/+nHiJgdSXQ8VjZjA9" target="_blank" rel="noopener">▶ &nbsp; HOW TO BUY AND HOW TO USE</a>
+    <div class="links">Already Member? <a data-page="loginPage">Login Now</a></div>
+    <div id="regMsg" class="msg"></div>
+  </section>
+
+  <!-- PASSWORD RESET / CHANGE -->
+  <section id="resetPage" class="card page">
+    <div class="page-title">🔑 PASSWORD RESET</div>
+    <div class="page-sub">PASSWORD CHANGE WITH CURRENT PASSWORD</div>
+    <form id="resetForm">
+      <input id="resetUser" placeholder="ENTER USERNAME OR EMAIL" required>
+      <input id="currentPass" type="password" placeholder="ENTER CURRENT PASSWORD" required>
+      <input id="newPass" type="password" placeholder="ENTER NEW PASSWORD" required>
+      <input id="confirmNewPass" type="password" placeholder="CONFIRM NEW PASSWORD" required>
+      <button class="primary" type="submit">PASSWORD UPDATE</button>
+    </form>
+    <div class="links"><a data-page="changeGmailPage">↔ BACK TO GMAIL OTP MODE</a></div>
+    <div class="links" style="margin-top:8px"><a data-page="loginPage">BACK TO LOGIN</a></div>
+    <div id="resetMsg" class="msg"></div>
+  </section>
+
+  <!-- CHANGE GMAIL DEMO -->
+  <section id="changeGmailPage" class="card page">
+    <div class="page-title">CHANGE GMAIL</div>
+    <div class="page-sub">GMAIL BY OTP</div>
+    <form id="gmailForm">
+      <input id="gmailUser" placeholder="ENTER USERNAME OR CURRENT GMAIL" required>
+      <button class="primary" type="submit">SEND OTP TO CURRENT MAIL</button>
+    </form>
+    <div class="links"><a data-page="resetPage">GMAIL CHANGE WITH PASSWORD →</a></div>
+    <div class="links" style="margin-top:8px"><a data-page="loginPage">← Back to Login Screen</a></div>
+    <div id="gmailMsg" class="msg"></div>
+  </section>
+</div>
+
+<script>
+const STORAGE_KEY='rony_demo_accounts';
+
+function accounts(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}
+function saveAccounts(a){localStorage.setItem(STORAGE_KEY,JSON.stringify(a))}
+function msg(id,text,type='error'){const e=document.getElementById(id);e.textContent=text;e.className='msg '+type}
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.msg').forEach(e=>{e.textContent='';e.className='msg'});
+}
+document.querySelectorAll('[data-page]').forEach(a=>a.addEventListener('click',()=>showPage(a.dataset.page)));
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const s=document.getElementById('loading-screen');
+    s.style.opacity='0';
+    setTimeout(()=>s.style.display='none',500);
+  },2800);
+});
+
+/* Google button is deliberately a DEMO button: no OAuth, no popup, no redirect. */
+document.getElementById('googleDemo').addEventListener('click',()=>{});
+document.getElementById('googleRegisterDemo').addEventListener('click',()=>{});
+
+/* Demo registration */
+document.getElementById('registerForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const user=regUser.value.trim(), email=regEmail.value.trim().toLowerCase();
+  const pass=regPass.value, confirm=regConfirm.value;
+  if(pass!==confirm)return msg('regMsg','Passwords do not match.');
+  if(pass.length<4)return msg('regMsg','Password must be at least 4 characters.');
+  const a=accounts();
+  if(a.some(x=>x.username.toLowerCase()===user.toLowerCase()))return msg('regMsg','Username already exists.');
+  a.push({username:user,email,password:pass}); saveAccounts(a);
+  msg('regMsg','Account created successfully. You can login now.','success');
+  e.target.reset();
+});
+
+/* Demo login */
+document.getElementById('loginForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const user=username.value.trim(), pass=password.value;
+  const a=accounts(), found=a.find(x=>(x.username.toLowerCase()===user.toLowerCase()||x.email.toLowerCase()===user.toLowerCase())&&x.password===pass);
+  if(found) msg('loginMsg','Login successful.','success');
+  else msg('loginMsg','Invalid username/email or password.');
+});
+
+/* Change password locally in this browser only */
+document.getElementById('resetForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const id=resetUser.value.trim().toLowerCase(), cur=currentPass.value, np=newPass.value, cp=confirmNewPass.value;
+  if(np!==cp)return msg('resetMsg','New passwords do not match.');
+  if(np.length<4)return msg('resetMsg','New password must be at least 4 characters.');
+  const a=accounts(), i=a.findIndex(x=>x.username.toLowerCase()===id||x.email.toLowerCase()===id);
+  if(i<0)return msg('resetMsg','Account not found.');
+  if(a[i].password!==cur)return msg('resetMsg','Current password is incorrect.');
+  a[i].password=np;saveAccounts(a);
+  msg('resetMsg','Password updated successfully.','success');
+  e.target.reset();
+});
+
+/* Demo Gmail/OTP screen: no real email is sent */
+document.getElementById('gmailForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  msg('gmailMsg','Demo mode: no real OTP/email is sent.','success');
+});
+</script>
+</body>
+</html>
