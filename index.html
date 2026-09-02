@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RONYFFOFFICIALRESALER - Authorize Access</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{
+  box-sizing:border-box;
+}
+html,body{
+  margin:0;
+  min-height:100%;
+}
+body{
+  min-height:100vh;
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow-x:hidden;
+  position:relative;
+}
+.bg{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  z-index:0;
+}
+.dot{
+  position:absolute;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:#08d8ed;
+  box-shadow:0 0 22px rgba(8,216,237,.35);
+}
+.d1{left:-18px;top:20%}
+.d2{right:7%;top:8%}
+.d3{left:28%;top:2%}
+.d4{right:-10px;top:42%}
+.d5{left:9%;bottom:15%}
+.d6{right:25%;bottom:4%}
+.d7{left:48%;bottom:18%}
+.d8{left:-25px;top:68%}
+
+.loader{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transition:opacity .35s ease;
+}
+.loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+.spinner{
+  width:58px;
+  height:58px;
+  border:4px solid #17323a;
+  border-top-color:#08d8ed;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+.loader h2{
+  margin:20px 0 7px;
+  color:#08d8ed;
+  letter-spacing:3px;
+}
+.loader p{
+  margin:0;
+  color:#777;
+  letter-spacing:2px;
+  font-size:12px;
+}
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+.card{
+  width:min(92%,575px);
+  margin:28px auto;
+  padding:42px 42px 34px;
+  background:#0d1018;
+  border:1px solid #1a2930;
+  border-radius:30px;
+  box-shadow:0 0 38px rgba(0,238,255,.10);
+  position:relative;
+  z-index:2;
+}
+.logo{
+  width:110px;
+  height:110px;
+  margin:0 auto 20px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0b1922;
+  border:2px dashed #08d8ed;
+  box-shadow:0 0 20px rgba(8,216,237,.3);
+  font-size:45px;
+  overflow:hidden;
+}
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+h1{
+  margin:0;
+  text-align:center;
+  font-size:26px;
+  letter-spacing:2px;
+}
+.sub{
+  margin:7px 0 28px;
+  text-align:center;
+  color:#08d8ed;
+  letter-spacing:4px;
+  font-size:15px;
+}
+input{
+  width:100%;
+  height:60px;
+  margin-bottom:15px;
+  padding:0 20px;
+  border-radius:15px;
+  border:1px solid #27303a;
+  outline:none;
+  background:#000;
+  color:#fff;
+  font-size:16px;
+}
+input::placeholder{
+  color:#777;
+}
+input:focus{
+  border-color:#08d8ed;
+  box-shadow:0 0 14px rgba(8,216,237,.18);
+}
+button{
+  width:100%;
+  height:60px;
+  border:0;
+  border-radius:15px;
+  cursor:pointer;
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+button:disabled{
+  opacity:.65;
+  cursor:wait;
+}
+.login{
+  background:#08d8ed;
+  color:#000;
+  margin-bottom:15px;
+}
+.google{
+  background:#fff;
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+.google svg{
+  width:22px;
+  height:22px;
+}
+.or{
+  text-align:center;
+  color:#4d515b;
+  letter-spacing:2px;
+  font-size:14px;
+  margin:0 0 18px;
+}
+.telegram{
+  background:transparent;
+  color:#08d8ed;
+  border:2px solid #08d8ed;
+  margin-bottom:22px;
+}
+.links{
+  text-align:center;
+  line-height:2.2;
+  font-size:16px;
+}
+.links a{
+  color:#08d8ed;
+  text-decoration:none;
+  cursor:pointer;
+}
+.sep{
+  color:#666;
+  margin:0 8px;
+}
+.new{
+  color:#777;
+}
+.msg{
+  min-height:23px;
+  margin:2px 0 13px;
+  text-align:center;
+  font-size:14px;
+  color:#08d8ed;
+}
+.msg.error{color:#ff6262;}
+.msg.success{color:#36ff91;}
+
+.panel{
+  display:none;
+}
+.panel.active{
+  display:block;
+}
+.panel h2{
+  text-align:center;
+  color:#08d8ed;
+  font-size:22px;
+  margin-bottom:5px;
+}
+.panel-sub{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:20px;
+}
+.small-btn{
+  height:54px;
+  font-size:15px;
+  margin-top:5px;
+}
+.back{
+  background:transparent;
+  color:#08d8ed;
+  border:1px solid #08d8ed;
+  margin-top:10px;
+}
+.switch-link{
+  text-align:center;
+  margin:15px 0;
+  font-size:14px;
+}
+.switch-link a{
+  color:#08d8ed;
+  cursor:pointer;
+  text-decoration:none;
+}
+.footer{
+  margin-top:25px;
+  text-align:center;
+  color:#454952;
+  font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div id="loader" class="loader">
+  <div class="spinner"></div>
+  <h2>SECURITY VALIDATION</h2>
+  <p>PLEASE WAIT...</p>
+</div>
+
+<div class="bg">
+  <div class="dot d1"></div>
+  <div class="dot d2"></div>
+  <div class="dot d3"></div>
+  <div class="dot d4"></div>
+  <div class="dot d5"></div>
+  <div class="dot d6"></div>
+  <div class="dot d7"></div>
+  <div class="dot d8"></div>
+</div>
+
+<main class="card">
+
+  <!-- 1. LOGIN PANEL -->
+  <section id="loginPanel" class="panel active">
+    <div class="logo"><img src="./rony.jpg" alt="RONYFFOFFICIALRESALER"></div>
+    <h1>RONYFFOFFICIALRESALER</h1>
+    <div class="sub">AUTHORIZE ACCESS</div>
+
+    <form id="loginForm">
+      <input id="email" type="email" placeholder="USER NAME OR EMAIL" autocomplete="email" required>
+      <input id="password" type="password" placeholder="PASSWORD" autocomplete="current-password" required>
+      <div id="loginMsg" class="msg"></div>
+      <button id="loginBtn" class="login" type="submit">LOGIN NOW</button>
+    </form>
+
+    <div class="or">OR LOGIN WITH</div>
+
+    <button id="googleBtn" class="google" type="button">
+      <svg viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M21.35 12.27c0-.71-.06-1.24-.2-1.79H12v3.39h5.37a4.58 4.58 0 0 1-1.99 3.01v2.51h3.23c1.89-1.74 2.74-4.3 2.74-7.12z"/>
+        <path fill="#34A853" d="M12 21.98c2.7 0 4.97-.89 6.61-2.42l-3.23-2.51c-.89.6-2.02.96-3.38.96-2.6 0-4.81-1.76-5.6-4.13H3.06v2.59A9.98 9.98 0 0 0 12 21.98z"/>
+        <path fill="#FBBC05" d="M6.4 13.88a6.01 6.01 0 0 1 0-3.76V7.53H3.06a10 10 0 0 0 0 8.94l3.34-2.59z"/>
+        <path fill="#EA4335" d="M12 5.99c1.47 0 2.79.51 3.83 1.51l2.87-2.87C16.97 2.96 14.7 2 12 2a9.98 9.98 0 0 0-8.94 5.53L6.4 10.12C7.19 7.75 9.4 5.99 12 5.99z"/>
+      </svg>
+      LOG IN WITH GOOGLE
+    </button>
+
+    <button id="telegramBtn" class="telegram" type="button">
+      ▶ HOW TO BUY AND HOW TO USE
+    </button>
+
+    <div class="links">
+      <div>
+        <a id="toForgot">Forgot Password?</a>
+        <span class="sep">|</span>
+        <a id="toChangeEmail">Change Gmail</a>
+      </div>
+      <div>
+        <span class="new">New User ?</span>
+        <a id="toCreate">Create Account</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 2. CREATE ACCOUNT PANEL -->
+  <section id="createPanel" class="panel">
+    <div class="logo"><img src="./rony.jpg" alt="RONYFFOFFICIALRESALER"></div>
+    <h1>RONYFFOFFICIALRESALER</h1>
+    <div class="sub">CREATE ACCOUNT</div>
+
+    <input id="signupUsername" type="text" placeholder="USER NAME" autocomplete="username">
+    <input id="signupEmail" type="email" placeholder="EMAIL ADDRESS" autocomplete="email">
+    <input id="signupPassword" type="password" placeholder="PASSWORD" autocomplete="new-password">
+    <input id="signupConfirmPassword" type="password" placeholder="CONFIRM PASSWORD" autocomplete="new-password">
+    
+    <div id="signupMsg" class="msg"></div>
+
+    <button id="signupBtn" class="login small-btn" type="button">REGISTER NOW</button>
+
+    <div class="switch-link">
+      <span class="new">Already Member?</span> <a onclick="showPanel('loginPanel')">Login Now</a>
+    </div>
+  </section>
+
+
+  <!-- 3. FORGOT PASSWORD - OTP MODE -->
+  <section id="forgotOtpPanel" class="panel">
+    <div class="logo"><img src="./rony.jpg" alt="RONYFFOFFICIALRESALER"></div>
+    <h2>PASSWORD RESET</h2>
+    <div class="panel-sub">PASSWORD RESET LINK SENT TO GMAIL</div>
+
+    <input id="forgotOtpEmail" type="email" placeholder="ENTER ACCOUNT EMAIL" autocomplete="email">
+    
+    <div id="forgotOtpMsg" class="msg"></div>
+
+    <button id="sendOtpBtn" class="login small-btn" type="button">VERIFY & SEND OTP</button>
+    
+    <div class="switch-link">
+      <a onclick="showPanel('forgotPassPanel')">PASSWORD CHANGE WITH CURRENT PASSWORD →</a>
+    </div>
+
+    <button class="back small-btn" type="button" onclick="showPanel('loginPanel')">BACK TO LOGIN</button>
+  </section>
+
+
+  <!-- 4. FORGOT PASSWORD - PASSWORD MODE -->
+  <section id="forgotPassPanel" class="panel">
+    <div class="logo"><img src="./rony.jpg" alt="RONYFFOFFICIALRESALER"></div>
+    <h2>PASSWORD RESET</h2>
+    <div class="panel-sub">PASSWORD CHANGE WITH CURRENT PASSWORD</div>
+
+    <input id="resetUser" type="email" placeholder="ENTER ACCOUNT EMAIL" autocomplete="email">
+    <input id="resetCurrentPass" type="password" placeholder="ENTER CURRENT PASSWORD">
+    <input id="resetNewPass" type="password" placeholder="ENTER NEW PASSWORD">
+    <input id="resetConfirmPass" type="password" placeholder="CONFIRM PASSWORD">
+
+    <div id="forgotPassMsg" class="msg"></div>
+
+    <button id="updatePassBtn" class="login small-btn" type="button">PASSWORD UPDATE</button>
+
+    <div class="switch-link">
+      <a onclick="showPanel('forgotOtpPanel')">← BACK TO GMAIL OTP MODE</a>
+    </div>
+
+    <button class="back small-btn" type="button" onclick="showPanel('loginPanel')">BACK TO LOGIN</button>
+  </section>
+
+
+  <!-- 5. CHANGE GMAIL - OTP MODE -->
+  <section id="changeEmailOtpPanel" class="panel">
+    <div class="logo"><img src="./rony.jpg" alt="RONYFFOFFICIALRESALER"></div>
+    <h2>CHANGE MAIL</h2>
+    <div class="panel-sub">VERIFY CURRENT ACCOUNT BEFORE CHANGING GMAIL</div>
+
+    <input id="changeOtpUser" type="email" placeholder="ENTER CURRENT GMAIL" autocomplete="email">
+
+    <div id="changeEmailOtpMsg" class="msg"></div>
+
+    <button id="sendEmailOtpBtn" class="login small-btn" type="button">SEND OTP TO CURRENT MAIL</button>
+
+    <div class="switch-link">
+      <a onclick="showPanel('changeEmailPassPanel')">GMAIL CHANGE WITH PASSWORD →</a>
+    </div>
+
+    <button class="back small-btn" type="button" onclick="showPanel('loginPanel')">← Back to Login Screen</button>
+  </section>
+
+
+  <!-- 6. CHANGE GMAIL - PASSWORD MODE -->
+  <section id="changeEmailPassPanel" class="panel">
+    <div class="logo"><img src="./rony.jpg" alt="RONYFFOFFICIALRESALER"></div>
+    <h2>CHANGE GMAIL</h2>
+    <div class="panel-sub">GMAIL FORGET USE CURRENT PASSWORD</div>
+
+    <input id="changePassUser" type="email" placeholder="ENTER CURRENT GMAIL" autocomplete="email">
+    <input id="changeNewEmail" type="email" placeholder="ENTER NEW GMAIL ADDRESS">
+    <input id="changeCurrentPass" type="password" placeholder="ENTER CURRENT PASSWORD">
+
+    <div id="changeEmailPassMsg" class="msg"></div>
+
+    <button id="updateEmailBtn" class="login small-btn" type="button">UPDATE GMAIL</button>
+
+    <div class="switch-link">
+      <a onclick="showPanel('changeEmailOtpPanel')">→ BACK TO GMAIL OTP MODE</a>
+    </div>
+
+    <button class="back small-btn" type="button" onclick="showPanel('loginPanel')">← Back to Login Screen</button>
+  </section>
+
+  <div class="footer">
+    © 2026 RONYFFOFFICIALRESALER
+  </div>
+
+</main>
+
+<script>
+const SUPABASE_URL = "https://dgknhptbbozshyfiyobo.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_NEHCtr3Y0o8FctOz5Jm59A_P4GhFAQd";
+const TELEGRAM_URL = "https://t.me/+nHiJgdSXQ8VjZjA9";
+
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+function $(id){ return document.getElementById(id); }
+
+function showPanel(panelId){
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  const target = $(panelId);
+  if(target){
+    target.classList.add("active");
+    target.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+}
+
+function showMsg(elementId, text, type="normal"){
+  const m = $(elementId);
+  if(!m) return;
+  m.textContent = text;
+  m.className = "msg " + (type === "error" ? "error" : type === "success" ? "success" : "");
+}
+
+function setBusy(btn, busy, text="PLEASE WAIT..."){
+  if(!btn) return;
+  if(!btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
+  btn.disabled = busy;
+  btn.textContent = busy ? text : btn.dataset.originalText;
+}
+
+function goDashboard(){
+  window.location.href = "./dashboard.html";
+}
+
+window.addEventListener("load", async () => {
+  setTimeout(() => { $("loader").classList.add("hide"); }, 800);
+  const { data } = await supabaseClient.auth.getSession();
+  if(data.session) goDashboard();
+});
+
+// Navigation Links
+$("toCreate").onclick = () => showPanel("createPanel");
+$("toForgot").onclick = () => showPanel("forgotOtpPanel");
+$("toChangeEmail").onclick = () => showPanel("changeEmailOtpPanel");
+$("telegramBtn").onclick = () => { window.location.href = TELEGRAM_URL; };
+
+function validEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+async function getSession(){
+  const { data, error } = await supabaseClient.auth.getSession();
+  if(error) throw error;
+  return data.session;
+}
+
+async function reauthenticate(email, password){
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if(error) throw error;
+  return data;
+}
+
+// 1. LOGIN HANDLER
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  if(!validEmail(email)) return showMsg("loginMsg", "Enter a valid email address.", "error");
+  if(!password) return showMsg("loginMsg", "Enter your password.", "error");
+
+  setBusy($("loginBtn"), true);
+  showMsg("loginMsg", "Signing in...");
+  try{
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if(error) throw error;
+    showMsg("loginMsg", "SUCCESSFUL", "success");
+    setTimeout(goDashboard, 500);
+  }catch(error){
+    showMsg("loginMsg", error.message || "Login failed.", "error");
+    setBusy($("loginBtn"), false);
+  }
+});
+
+// 2. GOOGLE LOGIN
+$("googleBtn").onclick = async () => {
+  setBusy($("googleBtn"), true, "OPENING...");
+  try{
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin + window.location.pathname }
+    });
+    if(error) throw error;
+  }catch(error){
+    showMsg("loginMsg", error.message || "Google login failed.", "error");
+    setBusy($("googleBtn"), false);
+  }
+};
+
+// 3. REGISTER HANDLER
+$("signupBtn").onclick = async () => {
+  const username = $("signupUsername").value.trim();
+  const email = $("signupEmail").value.trim();
+  const password = $("signupPassword").value;
+  const confirmPassword = $("signupConfirmPassword").value;
+
+  if(!username || !validEmail(email) || !password || !confirmPassword)
+    return showMsg("signupMsg", "Please fill all fields with a valid email.", "error");
+  if(password !== confirmPassword) return showMsg("signupMsg", "Passwords do not match.", "error");
+  if(password.length < 6) return showMsg("signupMsg", "Password must be at least 6 characters.", "error");
+
+  setBusy($("signupBtn"), true);
+  showMsg("signupMsg", "Creating account...");
+  try{
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username },
+        emailRedirectTo: window.location.origin + window.location.pathname
+      }
+    });
+    if(error) throw error;
+    if(data.session){
+      showMsg("signupMsg", "ACCOUNT CREATED — Redirecting...", "success");
+      setTimeout(goDashboard, 700);
+    }else{
+      showMsg("signupMsg", "ACCOUNT CREATED — Check your email to confirm, then login.", "success");
+      setTimeout(() => showPanel("loginPanel"), 1800);
+    }
+  }catch(error){
+    showMsg("signupMsg", error.message || "Registration failed.", "error");
+  }finally{
+    setBusy($("signupBtn"), false);
+  }
+};
+
+// 4. PASSWORD RESET EMAIL
+$("sendOtpBtn").onclick = async () => {
+  const email = $("forgotOtpEmail").value.trim();
+  if(!validEmail(email)) return showMsg("forgotOtpMsg", "Enter the account email address.", "error");
+
+  setBusy($("sendOtpBtn"), true);
+  showMsg("forgotOtpMsg", "Sending password reset link...");
+  try{
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + window.location.pathname + "#reset-password"
+    });
+    if(error) throw error;
+    showMsg("forgotOtpMsg", "RESET LINK SENT — Check your Gmail inbox.", "success");
+  }catch(error){
+    showMsg("forgotOtpMsg", error.message || "Could not send reset email.", "error");
+  }finally{
+    setBusy($("sendOtpBtn"), false);
+  }
+};
+
+// 5. CHANGE PASSWORD AFTER AUTHENTICATION
+$("updatePassBtn").onclick = async () => {
+  const email = $("resetUser").value.trim();
+  const currentPass = $("resetCurrentPass").value;
+  const newPass = $("resetNewPass").value;
+  const confirmPass = $("resetConfirmPass").value;
+
+  if(!validEmail(email) || !currentPass || !newPass || !confirmPass)
+    return showMsg("forgotPassMsg", "Enter email and fill all password fields.", "error");
+  if(newPass !== confirmPass) return showMsg("forgotPassMsg", "New passwords do not match.", "error");
+  if(newPass.length < 6) return showMsg("forgotPassMsg", "Password must be at least 6 characters.", "error");
+
+  setBusy($("updatePassBtn"), true);
+  showMsg("forgotPassMsg", "Verifying current password...");
+  try{
+    await reauthenticate(email, currentPass);
+    const { error } = await supabaseClient.auth.updateUser({ password: newPass });
+    if(error) throw error;
+    showMsg("forgotPassMsg", "SUCCESSFUL — Password updated!", "success");
+    $("resetCurrentPass").value = "";
+    $("resetNewPass").value = "";
+    $("resetConfirmPass").value = "";
+    setTimeout(() => showPanel("loginPanel"), 1500);
+  }catch(error){
+    showMsg("forgotPassMsg", error.message || "Password update failed.", "error");
+  }finally{
+    setBusy($("updatePassBtn"), false);
+  }
+};
+
+// 6. CHANGE GMAIL - require current login and send real Supabase email change confirmation
+$("sendEmailOtpBtn").onclick = async () => {
+  const email = $("changeOtpUser").value.trim();
+  if(!validEmail(email)) return showMsg("changeEmailOtpMsg", "Enter your current Gmail address.", "error");
+
+  setBusy($("sendEmailOtpBtn"), true);
+  showMsg("changeEmailOtpMsg", "Checking current session...");
+  try{
+    const session = await getSession();
+    if(!session) throw new Error("Please login first to change Gmail.");
+    if((session.user.email || "").toLowerCase() !== email.toLowerCase())
+      throw new Error("Current Gmail does not match the logged-in account.");
+    showMsg("changeEmailOtpMsg", "Verified — enter the new Gmail and current password below.", "success");
+    showPanel("changeEmailPassPanel");
+    $("changePassUser").value = email;
+  }catch(error){
+    showMsg("changeEmailOtpMsg", error.message || "Verification failed.", "error");
+  }finally{
+    setBusy($("sendEmailOtpBtn"), false);
+  }
+};
+
+// 7. CHANGE GMAIL - reauthenticate, then Supabase sends confirmation to the new address
+$("updateEmailBtn").onclick = async () => {
+  const currentEmail = $("changePassUser").value.trim();
+  const newEmail = $("changeNewEmail").value.trim();
+  const currentPass = $("changeCurrentPass").value;
+
+  if(!validEmail(currentEmail) || !validEmail(newEmail) || !currentPass)
+    return showMsg("changeEmailPassMsg", "Enter valid current/new Gmail and current password.", "error");
+  if(currentEmail.toLowerCase() === newEmail.toLowerCase())
+    return showMsg("changeEmailPassMsg", "New Gmail must be different from the current Gmail.", "error");
+
+  setBusy($("updateEmailBtn"), true);
+  showMsg("changeEmailPassMsg", "Verifying current password...");
+  try{
+    const session = await getSession();
+    if(!session) throw new Error("Please login first.");
+    if((session.user.email || "").toLowerCase() !== currentEmail.toLowerCase())
+      throw new Error("Current Gmail does not match the logged-in account.");
+
+    await reauthenticate(currentEmail, currentPass);
+    const { error } = await supabaseClient.auth.updateUser({ email: newEmail });
+    if(error) throw error;
+    showMsg("changeEmailPassMsg", "SUCCESSFUL — Confirmation sent to the new Gmail.", "success");
+    $("changeCurrentPass").value = "";
+  }catch(error){
+    showMsg("changeEmailPassMsg", error.message || "Gmail update failed.", "error");
+  }finally{
+    setBusy($("updateEmailBtn"), false);
+  }
+};
+
+// Handle Supabase auth events and password-recovery redirects.
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  if(event === "SIGNED_IN" && session && location.hash.includes("reset-password")){
+    showPanel("forgotPassPanel");
+    showMsg("forgotPassMsg", "Recovery session active. Set your new password below.");
+  }
+});
+</script>
+</body>
+</html>
